@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Specs Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <h1 class="rpm-radar">RPM RADAR</h1>
+        <div class="header">
+            <div class="arrow-left"></div>
+            <div class="title-banner">LAMBORGHINI REVUELTO</div>
+            <div class="arrow-right"></div>
+        </div>
+        <img src="lamborghini-logo.png" alt="Lamborghini Logo" class="logo">
+        <img src="lamborghini-revuelto.png" alt="Lamborghini Revuelto" class="car-image">
+        <div class="specs">
+            <div class="spec">
+                <div class="label">Horsepower:</div>
+                <div class="bar-container">
+                    <div class="bar red" style="width: 68%;"></div>
+                </div>
+                <div class="value">680hp</div>
+            </div>
+            <div class="spec">
+                <div class="label">Torque:</div>
+                <div class="bar-container">
+                    <div class="bar red" style="width: 60%;"></div>
+                </div>
+                <div class="value">600Nm</div>
+            </div>
+            <div class="spec">
+                <div class="label">Fuel Consumption:</div>
+                <div class="bar-container">
+                    <div class="bar red" style="width: 10%;"></div>
+                </div>
+                <div class="value">4.3L/100km</div>
+            </div>
+            <div class="spec">
+                <div class="label">Engine Type:</div>
+                <div class="bar-container" id="engine-type-bar-container">
+                    <div class="icon fuel"></div>
+                </div>
+                <div class="value">Gasoline</div>
+            </div>
+            <div class="spec">
+                <div class="label">Seating Capacity:</div>
+                <div class="bar-container">
+                    <div class="bar red" style="width: 20%;"></div>
+                </div>
+                <div class="value">2</div>
+            </div>
+            <div class="spec">
+                <div class="label">Price:</div>
+                <div class="bar-container">
+                    <div class="bar red" style="width: 60%;"></div>
+                </div>
+                <div class="value">600,000 USD</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
