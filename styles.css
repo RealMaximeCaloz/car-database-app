@@ -9,6 +9,7 @@ body {
     align-items: center;
     height: 100vh;
     color: #fff;
+    font-style: italic;
 }
 
 .dashboard {
@@ -24,6 +25,7 @@ body {
     font-weight: 700;
     margin-bottom: 10px; /* Reduced margin for closer spacing */
     text-align: center;
+    font-style: italic;
 }
 
 .header {
@@ -42,7 +44,7 @@ body {
 }
 
 .arrow-right {
-    transform: rotate(180deg);
+    transform: rotate(180deg );
 }
 
 .title-banner {
@@ -65,7 +67,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 60px;
 }
 
 .logo {
@@ -86,6 +88,7 @@ body {
     flex-direction: column;
     justify-content: center;
     max-width: 600px;
+    padding-right: 250px;
 }
 
 .spec {
