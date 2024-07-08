@@ -25,6 +25,8 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // Endpoint for fetching specific car details
 app.get('/api/car/:name', (req, res) => {
     const name = req.params.name;
+    console.log(`Fetching details for car: ${name}`); // Log the car name being fetched
+
 
     db.get("SELECT * FROM cars WHERE name = ?", [name], (err, row) => {
         if (err) {
@@ -33,6 +35,8 @@ app.get('/api/car/:name', (req, res) => {
             res.json(row);
         } else {
             res.status(404).json({ message: 'Car not found' });
+            console.log('Car not found'); // Log when no car is found
+
         }
     });
 });
@@ -42,6 +46,8 @@ app.get('/api/car/:name', (req, res) => {
 app.get('/api/cars', (req, res) => {
     const direction = req.query.direction;
     const currentName = req.query.currentName || '';
+    console.log(`Direction: ${direction}, Current Name: ${currentName}`); // Log direction and current car name
+
 
     let query = '';
     let params = [];
@@ -58,10 +64,17 @@ app.get('/api/cars', (req, res) => {
 
     db.get(query, params, (err, row) => {
         if (err) {
+            console.error('Database error:', err.message); // Log database errors
+
             res.status(500).json({ error: err.message });
         } else if (row) {
+            console.log('Car found:', row); // Log the car details found
+
             res.json(row);
+            
         } else {
+            console.log('No car found'); // Log when no car is found
+
             res.status(404).json({ message: 'No car found' });
         }
     });

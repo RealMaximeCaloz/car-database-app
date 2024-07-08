@@ -1,8 +1,23 @@
 const leftButton = document.getElementsByClassName("arrow-left")[0].addEventListener('click', handleLeftButtonClick);
 const rightButton = document.getElementsByClassName("arrow-right")[0].addEventListener('click', handleRightButtonClick);
 const titleBanner = document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
-let currentCarName = ''; // Track the current car's name
+let currentCarName = 'Ferrari SF90'; // Track the current car's name
 
+// TO DO LIST:
+// Fix nav buttons
+// Implement list on title banner
+
+// Initial load
+fetch(`/api/car/${currentCarName}`)
+    .then(response => response.json())
+    .then(data => {
+        if (data) {
+            displayCarDetails(data);
+        } else {
+            console.error('Initial car not found');
+        }
+    })
+    .catch(error => console.error('Error fetching initial car details:', error));
 
 function handleLeftButtonClick(){
     alert("left button was clicked!")
@@ -45,12 +60,13 @@ function fetchAllCars() {
 }
 
 function displayCarDetails(car) {
+    console.log("Sanity check");
     const carNameDiv = document.getElementsByClassName('title-banner')[0];
     carNameDiv.innerHTML = `
         <p>${car.name}</p>
     `
 
-    const carDetailsDiv = document.getElementByClassName('content')[0];
+    const carDetailsDiv = document.getElementsByClassName('content')[0];
     carDetailsDiv.innerHTML = `
         <div class="image-container">
             <img src="${car.logo_path}" alt="${car.name}" class="logo">
