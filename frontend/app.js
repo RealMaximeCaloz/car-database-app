@@ -1,11 +1,12 @@
 const leftButton = document.getElementsByClassName("arrow-left")[0].addEventListener('click', handleLeftButtonClick);
 const rightButton = document.getElementsByClassName("arrow-right")[0].addEventListener('click', handleRightButtonClick);
 const titleBanner = document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
-let currentCarName = 'Ferrari SF90'; // Track the current car's name
+let currentCarName = 'Lamborghini Revuelto'; // Track the current car's name
 
 // TO DO LIST:
 // Fix nav buttons
 // Implement list on title banner
+// dynamically draw progress bars
 
 // Initial load
 fetch(`/api/car/${currentCarName}`)
@@ -20,12 +21,10 @@ fetch(`/api/car/${currentCarName}`)
     .catch(error => console.error('Error fetching initial car details:', error));
 
 function handleLeftButtonClick(){
-    alert("left button was clicked!")
     navigateCar('previous');
 };
 
 function handleRightButtonClick(){
-    alert("right button was clicked!")
     navigateCar('next');
 };
 
@@ -42,9 +41,10 @@ function navigateCar(direction) {
             if (data.message) {
                 console.log(data.message); // Handle no cars found
             } else {
-                currentCarName = data[0].name; // Update the current car's name
+                console.log("DATAAAAA: ", data);
+                currentCarName = data.name; // Update the current car's name
                 console.log("currentCarName: ", currentCarName);
-                displayCarDetails(data[0]); // Display the car details
+                displayCarDetails(data); // Display the car details
             }
         })
         .catch(error => console.error('Error fetching car:', error));
@@ -60,7 +60,6 @@ function fetchAllCars() {
 }
 
 function displayCarDetails(car) {
-    console.log("Sanity check");
     const carNameDiv = document.getElementsByClassName('title-banner')[0];
     carNameDiv.innerHTML = `
         <p>${car.name}</p>
