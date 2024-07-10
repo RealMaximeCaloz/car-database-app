@@ -47,6 +47,17 @@ body {
     transform: rotate(180deg );
 }
 
+.arrow-left:active {
+    transform: translateY(2px);
+    background-color: rgb(161, 3, 3);
+
+}
+
+.arrow-right:active {
+    transform: rotate(180deg) translateY(-2px);
+    background-color: rgb(161, 3, 3);
+}
+
 .title-banner {
     background-color: #d00;
     padding: 0px 20px;
@@ -76,11 +87,11 @@ body {
 }
 
 .logo {
-    max-width: 100%;
+    max-width: 130px;
     max-height: 130px; 
     height: auto;
     width:auto;
-    object-fit: cover;
+    object-fit:contain;
     margin-bottom: 20px;
     height: 130px;
 }

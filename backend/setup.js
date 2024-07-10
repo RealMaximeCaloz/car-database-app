@@ -44,6 +44,9 @@ db.serialize(() => {
     const carData = [
         ['Lamborghini Revuelto', '/images/logos/lamborghini-logo.png', '/images/cars/lamborghini-revuelto.png', 814, 535, 14.2, 'Hybrid', 2, 600000],
         ['Ferrari SF90', '/images/logos/ferrari.png', '/images/cars/sf90.png', 986, 590, 6.1, 'Gasoline', 2, 625000],
+        ['Lamborghini Centenario', '/images/logos/lamborghini-logo.png', '/images/cars/lamborghini-centenario.png', 759, 690, 18.0, 'Gasoline', 2, 2500000],
+        ['Bugatti Chiron', '/images/logos/bugatti-logo.png', '/images/cars/bugatti-chiron.png', 1479, 1600, 22.5, 'Gasoline', 2, 3000000],
+        ['Ferrari 488', '/images/logos/ferrari.png', '/images/cars/ferrari-488.png', 661, 760, 11.4, 'Gasoline', 2, 262647]
         // Add more cars as needed
     ];
 

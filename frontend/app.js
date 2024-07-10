@@ -4,7 +4,7 @@ const titleBanner = document.getElementsByClassName("title-banner")[0].addEventL
 let currentCarName = 'Lamborghini Revuelto'; // Track the current car's name
 
 // TO DO LIST:
-// Fix nav buttons
+// Center gasoline logo
 // Implement list on title banner
 // dynamically draw progress bars
 
