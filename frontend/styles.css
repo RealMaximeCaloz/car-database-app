@@ -155,6 +155,7 @@ body {
     background-size: contain;
 }
 
+
 #engine-type-bar-container {
     background-color: transparent; /* Ensure no unwanted background */
 }
@@ -162,4 +163,14 @@ body {
 .value {
     width: 80px;
     text-align: right;
+}
+
+.car-list{
+    position:fixed;
+    top: 200px;
+}
+
+.car-item{
+    background-color: black;
+    z-index: 10000;
 }

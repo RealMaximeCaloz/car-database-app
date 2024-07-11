@@ -42,12 +42,11 @@ app.get('/api/car/:name', (req, res) => {
 });
 
 
-// API endpoints for car navigation (LEFT/RIGHT)
+// Endpoint for car navigation (LEFT/RIGHT)
 app.get('/api/cars', (req, res) => {
     const direction = req.query.direction;
     const currentName = req.query.currentName || '';
     console.log(`Direction: ${direction}, Current Name: ${currentName}`); // Log direction and current car name
-
 
     let query = '';
     let params = [];
@@ -59,23 +58,21 @@ app.get('/api/cars', (req, res) => {
         query = "SELECT * FROM cars WHERE name < ? ORDER BY name DESC LIMIT 1";
         params = [currentName];
     } else {
+        console.log("confirmed there is no direction")
         query = "SELECT * FROM cars ORDER BY name ASC";
     }
 
-    db.get(query, params, (err, row) => {
+    db.get(query, params, (err, row) => { // Use db.get to return a single row
         if (err) {
             console.error('Database error:', err.message); // Log database errors
-
             res.status(500).json({ error: err.message });
-        } else if (row) {
-            console.log('Car found:', row); // Log the car details found
-
-            res.json(row);
-            
         } else {
-            console.log('No car found'); // Log when no car is found
-
-            res.status(404).json({ message: 'No car found' });
+            console.log('Car found:', row); // Log the car found
+            if (row) {
+                res.json(row); // Return the single car object
+            } else {
+                res.status(404).json({ message: 'Car not found' });
+            }
         }
     });
 });

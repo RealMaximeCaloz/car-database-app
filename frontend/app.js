@@ -1,7 +1,8 @@
 const leftButton = document.getElementsByClassName("arrow-left")[0].addEventListener('click', handleLeftButtonClick);
 const rightButton = document.getElementsByClassName("arrow-right")[0].addEventListener('click', handleRightButtonClick);
 const titleBanner = document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
-let currentCarName = 'Lamborghini Revuelto'; // Track the current car's name
+let currentCarName = 'Lamborghini Centenario'; // Track the current car's name
+const carListDiv = document.getElementById('car-list');
 
 // TO DO LIST:
 // Center gasoline logo
@@ -29,7 +30,6 @@ function handleRightButtonClick(){
 };
 
 function handleTitleBannerClick(){
-    alert("Title Banner was clicked!")
     fetchAllCars();
 };
 
@@ -54,16 +54,40 @@ function fetchAllCars() {
     fetch('/api/cars')
         .then(response => response.json())
         .then(data => {
-            displayCarList(data);
+            if (Array.isArray(data)) {
+                displayCarList(data);
+            } else if (typeof data === 'object' && data !== null) {
+                // If a single object is returned, wrap it in an array
+                displayCarList([data]);
+            } else {
+                console.error('Unexpected data format received:', data);
+            }
         })
         .catch(error => console.error('Error fetching cars:', error));
 }
 
+function displayCarList(cars) {
+    carListDiv.innerHTML = ''; // Clear previous list
+
+    cars.forEach(car => {
+        const carItem = createCarItem(car);
+        carListDiv.appendChild(carItem);
+    });
+}
+
+
 function displayCarDetails(car) {
     const carNameDiv = document.getElementsByClassName('title-banner')[0];
-    carNameDiv.innerHTML = `
-        <p>${car.name}</p>
-    `
+    // Update only the text content within the car name div
+    const carNameText = carNameDiv.querySelector('.car-name-text');
+    if (!carNameText) {
+        const newCarNameText = document.createElement('p');
+        newCarNameText.classList.add('car-name-text');
+        newCarNameText.textContent = car.name;
+        carNameDiv.appendChild(newCarNameText);
+    } else {
+        carNameText.textContent = car.name;
+    }
 
     const carDetailsDiv = document.getElementsByClassName('content')[0];
     carDetailsDiv.innerHTML = `
@@ -75,21 +99,21 @@ function displayCarDetails(car) {
             <div class="spec">
                 <div class="label">Horsepower:</div>
                 <div class="bar-container">
-                    <div class="bar red" style="width: 68%;"></div>
+                    <div class="bar red" style="width: ${calculateWidth(car.horsepower, 1000)};"></div>
                 </div>
                 <div class="value">${car.horsepower}hp</div>
             </div>
             <div class="spec">
                 <div class="label">Torque:</div>
                 <div class="bar-container">
-                    <div class="bar red" style="width: 60%;"></div>
+                    <div class="bar red" style="width: ${calculateWidth(car.torque, 1000)};"></div>
                 </div>
                 <div class="value">${car.torque}Nm</div>
             </div>
             <div class="spec">
                 <div class="label">Fuel Consumption:</div>
                 <div class="bar-container">
-                    <div class="bar red" style="width: 10%;"></div>
+                    <div class="bar red" style="width: ${calculateFuelBarWidth(car.fuel_consumption)};"></div>
                 </div>
                 <div class="value">${car.fuel_consumption}L/100km</div>
             </div>
@@ -103,7 +127,7 @@ function displayCarDetails(car) {
             <div class="spec">
                 <div class="label">Seating Capacity:</div>
                 <div class="bar-container">
-                    <div class="bar red" style="width: 20%;"></div>
+                    <div class="bar red" style="width: ${calculateWidth(car.seating_capacity, 9)};"></div>
                 </div>
                 <div class="value">${car.seating_capacity}</div>
             </div>
@@ -119,21 +143,36 @@ function displayCarDetails(car) {
 }
 
 
-function displayCarList(cars) {
-    const carListDiv = document.getElementById('car-list');
-    carListDiv.innerHTML = ''; // Clear previous list
-    cars.forEach(car => {
-        const carItem = document.createElement('div');
-        carItem.className = 'car-item';
-        carItem.innerText = car.name;
-        carItem.onclick = () => {
-            currentCarName = car.name;
-            fetch(`/api/car/${car.name}`)
-                .then(response => response.json())
-                .then(data => displayCarDetails(data))
-                .catch(error => console.error('Error fetching car details:', error));
-        };
-        carListDiv.appendChild(carItem);
-    });
+function createCarItem(car) {
+    const carItem = document.createElement('div');
+    carItem.className = 'car-item';
+    carItem.innerText = car.name;
+    carItem.onclick = () => {
+        currentCarName = car.name;
+        fetch(`/api/car/${car.name}`)
+            .then(response => response.json())
+            .then(data => {
+                carListDiv.style.display = 'none'; // Hide dropdown after selection
+                displayCarDetails(data);
+            })
+            .catch(error => console.error('Error fetching car details:', error));
+    };
+    return carItem;
 }
 
+
+function calculateWidth(value, maxValue) {
+    let width = (value / maxValue) * 100; 
+    if (width > 100){
+        width = 100;
+    }
+    return (width) + '%';
+}
+
+function calculateFuelBarWidth(value) {
+    let width = (1/value)*100
+    if (width > 100){
+        width = 100;
+    }
+    return width + '%';
+}
