@@ -10,11 +10,11 @@ Down below, you can see screenshots of this car database web app in full glory, 
 
 You can use the left and right triangular buttons to navigate between the specs of various cars.
 
-![Idle UI]()
+![Idle UI](https://github.com/RealMaximeCaloz/car-database-app/blob/1b28bab5db43eb5d66e3555cc5694450c1555b8d/screenshots/car_db_idle_ui.png)
 
 If you would like even more control, you may click the title banner in the middle to make a drop down menu appear. From this menu, you can choose to display whichever car you wish.
 
-![Drop down menu]()
+![Drop down menu](https://github.com/RealMaximeCaloz/car-database-app/blob/1b28bab5db43eb5d66e3555cc5694450c1555b8d/screenshots/car_db_drop_down_menu.png)
 
 This project was made with <b>HTML, CSS, JavaScript (node, express)</b>.
 
