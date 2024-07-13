@@ -58,20 +58,20 @@ app.get('/api/cars', (req, res) => {
         query = "SELECT * FROM cars WHERE name < ? ORDER BY name DESC LIMIT 1";
         params = [currentName];
     } else {
-        console.log("confirmed there is no direction")
         query = "SELECT * FROM cars ORDER BY name ASC";
     }
 
-    db.get(query, params, (err, row) => { // Use db.get to return a single row
+
+    db.all(query, params, (err, rows) => { // Use db.all to return multiple rows
         if (err) {
             console.error('Database error:', err.message); // Log database errors
             res.status(500).json({ error: err.message });
         } else {
-            console.log('Car found:', row); // Log the car found
-            if (row) {
-                res.json(row); // Return the single car object
+            console.log('\n\nCars found:', rows); // Log the cars found
+            if (rows.length > 0) {
+                res.json(rows); // Return the array of car objects
             } else {
-                res.status(404).json({ message: 'Car not found' });
+                res.status(404).json({ message: 'No cars found' });
             }
         }
     });

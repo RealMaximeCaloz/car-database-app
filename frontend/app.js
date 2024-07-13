@@ -29,10 +29,13 @@ function handleRightButtonClick(){
     navigateCar('next');
 };
 
+function attachTitleBannerEventListener(){
+    document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
+}
+
 function handleTitleBannerClick(){
     fetchAllCars();
 };
-
 
 function navigateCar(direction) {
     fetch(`/api/cars?direction=${direction}&currentName=${currentCarName}`)
@@ -41,10 +44,12 @@ function navigateCar(direction) {
             if (data.message) {
                 console.log(data.message); // Handle no cars found
             } else {
-                console.log("DATAAAAA: ", data);
-                currentCarName = data.name; // Update the current car's name
+                console.log("DATAAAAA: ", data[0]);
+                console.log("DATAAAAA name: ", data[0].name);
+
+                currentCarName = data[0].name; // Update the current car's name
                 console.log("currentCarName: ", currentCarName);
-                displayCarDetails(data); // Display the car details
+                displayCarDetails(data[0]); // Display the car details
             }
         })
         .catch(error => console.error('Error fetching car:', error));
@@ -55,9 +60,11 @@ function fetchAllCars() {
         .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
+                console.log("data from fetch all cars (array): ", data);
                 displayCarList(data);
             } else if (typeof data === 'object' && data !== null) {
                 // If a single object is returned, wrap it in an array
+                console.log("data from fetch all cars (object): ", data);
                 displayCarList([data]);
             } else {
                 console.error('Unexpected data format received:', data);
@@ -67,6 +74,7 @@ function fetchAllCars() {
 }
 
 function displayCarList(cars) {
+    const carListDiv = document.getElementById('car-list');
     carListDiv.innerHTML = ''; // Clear previous list
 
     cars.forEach(car => {
@@ -140,6 +148,7 @@ function displayCarDetails(car) {
             </div>
         </div>
     `;
+    attachTitleBannerEventListener();
 }
 
 
