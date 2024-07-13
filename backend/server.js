@@ -27,7 +27,6 @@ app.get('/api/car/:name', (req, res) => {
     const name = req.params.name;
     console.log(`Fetching details for car: ${name}`); // Log the car name being fetched
 
-
     db.get("SELECT * FROM cars WHERE name = ?", [name], (err, row) => {
         if (err) {
             res.status(500).json({ error: err.message });
@@ -36,11 +35,9 @@ app.get('/api/car/:name', (req, res) => {
         } else {
             res.status(404).json({ message: 'Car not found' });
             console.log('Car not found'); // Log when no car is found
-
         }
     });
 });
-
 
 // Endpoint for car navigation (LEFT/RIGHT)
 app.get('/api/cars', (req, res) => {
@@ -61,7 +58,6 @@ app.get('/api/cars', (req, res) => {
         query = "SELECT * FROM cars ORDER BY name ASC";
     }
 
-
     db.all(query, params, (err, rows) => { // Use db.all to return multiple rows
         if (err) {
             console.error('Database error:', err.message); // Log database errors
@@ -77,9 +73,6 @@ app.get('/api/cars', (req, res) => {
     });
 });
 
-
-
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-

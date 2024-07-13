@@ -21,21 +21,29 @@ fetch(`/api/car/${currentCarName}`)
     })
     .catch(error => console.error('Error fetching initial car details:', error));
 
-function handleLeftButtonClick(){
+function handleLeftButtonClick() {
     navigateCar('previous');
 };
 
-function handleRightButtonClick(){
+function handleRightButtonClick() {
     navigateCar('next');
 };
 
-function attachTitleBannerEventListener(){
+function attachTitleBannerEventListener() {
     document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
 }
 
-function handleTitleBannerClick(){
-    fetchAllCars();
+function handleTitleBannerClick() {
+    toggleCarListVisibility();
 };
+
+function toggleCarListVisibility() {
+    if (carListDiv.style.display === 'none') {
+        fetchAllCars();
+    } else {
+        carListDiv.style.display = 'none';
+    }
+}
 
 function navigateCar(direction) {
     fetch(`/api/cars?direction=${direction}&currentName=${currentCarName}`)
@@ -74,7 +82,8 @@ function fetchAllCars() {
 }
 
 function displayCarList(cars) {
-    const carListDiv = document.getElementById('car-list');
+    carListDiv.style.display = 'block'; // Ensure car list is visible
+
     carListDiv.innerHTML = ''; // Clear previous list
 
     cars.forEach(car => {
@@ -82,7 +91,6 @@ function displayCarList(cars) {
         carListDiv.appendChild(carItem);
     });
 }
-
 
 function displayCarDetails(car) {
     const carNameDiv = document.getElementsByClassName('title-banner')[0];
@@ -148,9 +156,10 @@ function displayCarDetails(car) {
             </div>
         </div>
     `;
+
+    carListDiv.style.display = 'none'; // Hide car list after selecting a car
     attachTitleBannerEventListener();
 }
-
 
 function createCarItem(car) {
     const carItem = document.createElement('div');
@@ -169,18 +178,17 @@ function createCarItem(car) {
     return carItem;
 }
 
-
 function calculateWidth(value, maxValue) {
-    let width = (value / maxValue) * 100; 
-    if (width > 100){
+    let width = (value / maxValue) * 100;
+    if (width > 100) {
         width = 100;
     }
     return (width) + '%';
 }
 
 function calculateFuelBarWidth(value) {
-    let width = (1/value)*100
-    if (width > 100){
+    let width = (1 / value) * 100;
+    if (width > 100) {
         width = 100;
     }
     return width + '%';
@@ -188,25 +196,25 @@ function calculateFuelBarWidth(value) {
 
 function calculatePriceBarWidth(price) {
     let width;
-    if (price < 10000){
+    if (price < 10000) {
         width = 100;
-    } else if (price >= 10000 && price < 25000){
+    } else if (price >= 10000 && price < 25000) {
         width = 90;
-    }else if (price >= 25000 && price < 50000){
+    } else if (price >= 25000 && price < 50000) {
         width = 80;
-    }else if (price >= 50000 && price < 80000){
+    } else if (price >= 50000 && price < 80000) {
         width = 70;
-    }else if (price >= 80000 && price < 100000){
+    } else if (price >= 80000 && price < 100000) {
         width = 60;
-    }else if (price >= 100000 && price < 150000){
+    } else if (price >= 100000 && price < 150000) {
         width = 50;
-    }else if (price >= 150000 && price < 250000){
+    } else if (price >= 150000 && price < 250000) {
         width = 40;
-    }else if (price >= 250000 && price < 500000){
+    } else if (price >= 250000 && price < 500000) {
         width = 30;
-    }else if (price >= 500000 && price < 1000000){
+    } else if (price >= 500000 && price < 1000000) {
         width = 20;
-    }else if (price >= 1000000){
+    } else if (price >= 1000000) {
         width = 10;
     }
     return width + '%';
