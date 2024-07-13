@@ -134,7 +134,7 @@ function displayCarDetails(car) {
             <div class="spec">
                 <div class="label">Price:</div>
                 <div class="bar-container">
-                    <div class="bar red" style="width: 60%;"></div>
+                    <div class="bar red" style="width: ${calculatePriceBarWidth(car.price)};"></div>
                 </div>
                 <div class="value">$${car.price} USD</div>
             </div>
@@ -173,6 +173,32 @@ function calculateFuelBarWidth(value) {
     let width = (1/value)*100
     if (width > 100){
         width = 100;
+    }
+    return width + '%';
+}
+
+function calculatePriceBarWidth(price) {
+    let width;
+    if (price < 10000){
+        width = 100;
+    } else if (price >= 10000 && price < 25000){
+        width = 90;
+    }else if (price >= 25000 && price < 50000){
+        width = 80;
+    }else if (price >= 50000 && price < 80000){
+        width = 70;
+    }else if (price >= 80000 && price < 100000){
+        width = 60;
+    }else if (price >= 100000 && price < 150000){
+        width = 50;
+    }else if (price >= 150000 && price < 250000){
+        width = 40;
+    }else if (price >= 250000 && price < 500000){
+        width = 30;
+    }else if (price >= 500000 && price < 1000000){
+        width = 20;
+    }else if (price >= 1000000){
+        width = 10;
     }
     return width + '%';
 }
