@@ -6,8 +6,6 @@ const carListDiv = document.getElementById('car-list');
 
 // TO DO LIST:
 // Center gasoline logo
-// Implement list on title banner
-// dynamically draw progress bars
 
 // Initial load
 fetch(`/api/car/${currentCarName}`)
@@ -135,8 +133,8 @@ function displayCarDetails(car) {
             </div>
             <div class="spec">
                 <div class="label">Engine Type:</div>
-                <div class="bar-container" id="engine-type-bar-container">
-                    <div class="icon fuel"></div>
+                <div class="fuel-bar-container" id="engine-type-bar-container">
+                    <img class="fuel-icon" src="images/icons/fuel-icon.png" alt="Fuel Icon">
                 </div>
                 <div class="value">${car.engine_type}</div>
             </div>

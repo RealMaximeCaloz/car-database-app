@@ -29,6 +29,16 @@ body {
 }
 
 .header {
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensures it spans the full width */
+    margin-bottom: 20px; /* Adjust as needed */
+    position: relative;
+}
+
+
+.navbar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,6 +51,8 @@ body {
     height: 30px;
     background-color: #d00;
     clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    cursor:pointer;
+
 }
 
 .arrow-right {
@@ -68,6 +80,12 @@ body {
     color: #fff;
     border-radius: 5px;
     text-align: center;
+    cursor:pointer;
+
+}
+
+.title-banner:active {
+    background-color: rgb(161, 3, 3);
 }
 
 .content {
@@ -147,13 +165,23 @@ body {
     background-color: #d00;
 }
 
-.fuel {
-    width: 40px;
-    height: 40px;
-    background: url('images/icons/fuel-icon.png') no-repeat center;
-    background-color: transparent; /* Change from black to transparent */
-    background-size: contain;
+.fuel-bar-container {
+    flex-grow: 1;
+    background-color: #fff;
+    margin: 0 10px;
+    position: relative;
+    display: flex; /* Use flexbox for the container */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
+
+
+.fuel-icon {
+    width: 30px;
+    height: 30px;
+}
+
+
 
 
 #engine-type-bar-container {
@@ -166,11 +194,26 @@ body {
 }
 
 .car-list{
-    position:fixed;
-    top: 200px;
+    position: absolute;
+    background-color: #1a1a1a;
+    top: 180px; /* Adjust as needed */
+    left: 500px;
+    width: 285px;
+    min-height: 50px;
+    overflow-y: auto;
+    border-radius: 5px;
+    border-color: red;
+    border-width: 2px;
+    z-index: 9999
 }
 
 .car-item{
-    background-color: black;
+    background-color: #1a1a1a;
     z-index: 10000;
+    padding: 2px;
+    cursor:pointer;
+}
+
+.car-item:hover{
+    background-color: #b00000;
 }
