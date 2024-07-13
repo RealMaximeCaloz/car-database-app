@@ -1,13 +1,13 @@
+// Web app setup
 const leftButton = document.getElementsByClassName("arrow-left")[0].addEventListener('click', handleLeftButtonClick);
 const rightButton = document.getElementsByClassName("arrow-right")[0].addEventListener('click', handleRightButtonClick);
-const titleBanner = document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
+
+attachTitleBannerEventListener();
+
 let currentCarName = 'Lamborghini Centenario'; // Track the current car's name
 const carListDiv = document.getElementById('car-list');
 
-// TO DO LIST:
-// Center gasoline logo
-
-// Initial load
+// Initial load of web app
 fetch(`/api/car/${currentCarName}`)
     .then(response => response.json())
     .then(data => {
@@ -17,8 +17,10 @@ fetch(`/api/car/${currentCarName}`)
             console.error('Initial car not found');
         }
     })
-    .catch(error => console.error('Error fetching initial car details:', error));
+    .catch(error => console.error('Error fetching initial car details:', error)
+);
 
+// functions
 function handleLeftButtonClick() {
     navigateCar('previous');
 };
@@ -27,12 +29,12 @@ function handleRightButtonClick() {
     navigateCar('next');
 };
 
-function attachTitleBannerEventListener() {
-    document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
-}
-
 function handleTitleBannerClick() {
     toggleCarListVisibility();
+};
+
+function attachTitleBannerEventListener() {
+    document.getElementsByClassName("title-banner")[0].addEventListener('click', handleTitleBannerClick);
 };
 
 function toggleCarListVisibility() {
@@ -41,58 +43,53 @@ function toggleCarListVisibility() {
     } else {
         carListDiv.style.display = 'none';
     }
-}
+};
 
 function navigateCar(direction) {
     fetch(`/api/cars?direction=${direction}&currentName=${currentCarName}`)
         .then(response => response.json())
         .then(data => {
             if (data.message) {
-                console.log(data.message); // Handle no cars found
+                console.log(data.message);
             } else {
-                console.log("DATAAAAA: ", data[0]);
-                console.log("DATAAAAA name: ", data[0].name);
-
-                currentCarName = data[0].name; // Update the current car's name
-                console.log("currentCarName: ", currentCarName);
-                displayCarDetails(data[0]); // Display the car details
+                currentCarName = data[0].name; 
+                displayCarDetails(data[0]);
             }
         })
-        .catch(error => console.error('Error fetching car:', error));
-}
+        .catch(error => console.error('Error fetching car:', error)
+    );
+};
 
 function fetchAllCars() {
     fetch('/api/cars')
         .then(response => response.json())
         .then(data => {
             if (Array.isArray(data)) {
-                console.log("data from fetch all cars (array): ", data);
                 displayCarList(data);
             } else if (typeof data === 'object' && data !== null) {
                 // If a single object is returned, wrap it in an array
-                console.log("data from fetch all cars (object): ", data);
                 displayCarList([data]);
             } else {
                 console.error('Unexpected data format received:', data);
             }
         })
-        .catch(error => console.error('Error fetching cars:', error));
-}
+        .catch(error => console.error('Error fetching cars:', error)
+    );
+};
 
 function displayCarList(cars) {
-    carListDiv.style.display = 'block'; // Ensure car list is visible
+    carListDiv.style.display = 'block';
 
-    carListDiv.innerHTML = ''; // Clear previous list
+    carListDiv.innerHTML = '';
 
     cars.forEach(car => {
         const carItem = createCarItem(car);
         carListDiv.appendChild(carItem);
     });
-}
+};
 
 function displayCarDetails(car) {
     const carNameDiv = document.getElementsByClassName('title-banner')[0];
-    // Update only the text content within the car name div
     const carNameText = carNameDiv.querySelector('.car-name-text');
     if (!carNameText) {
         const newCarNameText = document.createElement('p');
@@ -102,7 +99,6 @@ function displayCarDetails(car) {
     } else {
         carNameText.textContent = car.name;
     }
-
     const carDetailsDiv = document.getElementsByClassName('content')[0];
     carDetailsDiv.innerHTML = `
         <div class="image-container">
@@ -154,10 +150,9 @@ function displayCarDetails(car) {
             </div>
         </div>
     `;
-
     carListDiv.style.display = 'none'; // Hide car list after selecting a car
     attachTitleBannerEventListener();
-}
+};
 
 function createCarItem(car) {
     const carItem = document.createElement('div');
@@ -174,7 +169,7 @@ function createCarItem(car) {
             .catch(error => console.error('Error fetching car details:', error));
     };
     return carItem;
-}
+};
 
 function calculateWidth(value, maxValue) {
     let width = (value / maxValue) * 100;
@@ -182,7 +177,7 @@ function calculateWidth(value, maxValue) {
         width = 100;
     }
     return (width) + '%';
-}
+};
 
 function calculateFuelBarWidth(value) {
     let width = (1 / value) * 100;
@@ -190,7 +185,7 @@ function calculateFuelBarWidth(value) {
         width = 100;
     }
     return width + '%';
-}
+};
 
 function calculatePriceBarWidth(price) {
     let width;
@@ -216,4 +211,4 @@ function calculatePriceBarWidth(price) {
         width = 10;
     }
     return width + '%';
-}
+};

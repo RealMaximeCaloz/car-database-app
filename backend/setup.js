@@ -1,3 +1,5 @@
+// This file only needs to be run once to setup the project and populate the database.
+
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
@@ -34,13 +36,13 @@ db.serialize(() => {
         }
     });
 
-    // Insert initial data
+    // Prepare table
     const insertStmt = db.prepare(`
         INSERT INTO cars (name, logo_path, image_path, horsepower, torque, fuel_consumption, engine_type, seating_capacity, price)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
-    // Example car data
+    // Insert Car Data
     const carData = [
         ['Lamborghini Revuelto', '/images/logos/lamborghini-logo.png', '/images/cars/lamborghini-revuelto.png', 814, 535, 14.2, 'Hybrid', 2, 600000],
         ['Ferrari SF90', '/images/logos/ferrari.png', '/images/cars/sf90.png', 986, 590, 6.1, 'Gasoline', 2, 625000],

@@ -1,0 +1,17 @@
+{
+  "name": "rpm-radar-car-database-web-app",
+  "version": "1.0.0",
+  "description": "1. Clone this repository:\r ```\r $ git clone https://github.com/RealMaximeCaloz/car-database-app\r ``` \r 2. Navigate to the `backend` folder and download the required packages/modules with the following line:\r ```\r npm i express\r npm i sqlite3\r npm i path\r ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "path": "^0.12.7",
+    "sqlite3": "^5.1.7"
+  }
+}

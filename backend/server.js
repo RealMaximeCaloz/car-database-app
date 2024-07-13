@@ -7,8 +7,6 @@ const port = 3000;
 // Serve static files from the frontend directory
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-
-// MAKE SURE THIS WORKS
 // Serve images from the backend images directory
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
@@ -25,7 +23,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // Endpoint for fetching specific car details
 app.get('/api/car/:name', (req, res) => {
     const name = req.params.name;
-    console.log(`Fetching details for car: ${name}`); // Log the car name being fetched
 
     db.get("SELECT * FROM cars WHERE name = ?", [name], (err, row) => {
         if (err) {
@@ -34,7 +31,6 @@ app.get('/api/car/:name', (req, res) => {
             res.json(row);
         } else {
             res.status(404).json({ message: 'Car not found' });
-            console.log('Car not found'); // Log when no car is found
         }
     });
 });
@@ -43,8 +39,6 @@ app.get('/api/car/:name', (req, res) => {
 app.get('/api/cars', (req, res) => {
     const direction = req.query.direction;
     const currentName = req.query.currentName || '';
-    console.log(`Direction: ${direction}, Current Name: ${currentName}`); // Log direction and current car name
-
     let query = '';
     let params = [];
 
@@ -63,7 +57,6 @@ app.get('/api/cars', (req, res) => {
             console.error('Database error:', err.message); // Log database errors
             res.status(500).json({ error: err.message });
         } else {
-            console.log('\n\nCars found:', rows); // Log the cars found
             if (rows.length > 0) {
                 res.json(rows); // Return the array of car objects
             } else {
