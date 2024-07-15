@@ -190,8 +190,8 @@ body {
 .car-list{
     position: absolute;
     background-color: #1a1a1a;
-    top: 180px; 
-    left: 500px;
+    top: 60px; 
+    left: 310px;
     width: 285px;
     min-height: 50px;
     overflow-y: auto;
